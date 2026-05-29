@@ -1,12 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const vpsRoutes = require('./routes');
+const contaboRoutes = require('./routes/contabo');
 const authMiddleware = require('./middleware/auth');
 
 const app = express();
 
-// CORS for portfolio
+// CORS portfolio
 app.use(cors({
   origin: process.env.ALLOWED_ORIGIN,
   credentials: true
@@ -14,25 +14,18 @@ app.use(cors({
 
 app.use(express.json());
 
-// Routes (all require API key)
-app.use('/api/vps', authMiddleware, vpsRoutes);
+app.use('/api/contabo', authMiddleware, contaboRoutes);
 
-// Health check (public)
+// Health check
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'ok', 
-    service: 'VPS Server Management API',
+    service: 'TikTok Downloader & Server API',
     timestamp: new Date().toISOString()
   });
 });
 
-const PORT = process.env.PORT || 4004;
+const PORT = process.env.PORT;
 app.listen(PORT, '0.0.0.0', () => {
-  console.log(`🚀 VPS API running on port ${PORT}`);
-  console.log(`📍 Status: /api/vps/status`);
-  console.log(`📍 Processes: /api/vps/processes`);
-  console.log(`📍 Storage: /api/vps/storage`);
-  console.log(`📍 Deploy: /api/vps/deploy`);
-  console.log(`📍 Uploads: /api/vps/uploads/list`);
-  console.log(`📍 Logs: /api/vps/logs/pm2`);
+  console.log(`📍 Server: /api/contabo/status (requires API key)`);
 });
