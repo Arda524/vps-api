@@ -31,29 +31,43 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get detailed storage info for specific directories
+/**
+ * Get detailed storage info for directories under /var/www
+ * (replaces hardcoded list so dashboard shows real folders)
+ */
 router.get('/detailed', (req, res) => {
-  const directories = [
-    '/var/www/rashmaliarefan',
-    '/var/www/portfolio-downloader',
-    '/var/www/rashmaliarefan/public/uploads'
-  ];
-  
-  const results = [];
-  let completed = 0;
-  
-  directories.forEach(dir => {
-    exec(`du -sh "${dir}" 2>/dev/null`, (err, stdout) => {
-      let size = '0';
-      if (!err && stdout) {
-        size = stdout.trim().split(/\s+/)[0] || '0';
-      }
-      results.push({ path: dir, size: size });
-      completed++;
-      
-      if (completed === directories.length) {
-        res.json({ success: true, directories: results });
-      }
+  // List only immediate subdirectories under /var/www (safe on Linux)
+  exec('find /var/www -mindepth 1 -maxdepth 1 -type d -print 2>/dev/null', (err, stdout) => {
+    if (err) {
+      return res.json({ success: true, directories: [] });
+    }
+    const dirs = (stdout || '')
+      .split('\n')
+      .map(s => s.trim())
+      .filter(Boolean);
+
+    if (dirs.length === 0) {
+      return res.json({ success: true, directories: [] });
+    }
+
+    const results = [];
+    let completed = 0;
+
+    dirs.forEach(dir => {
+      exec(`du -sh "${dir}" 2>/dev/null`, (duErr, duStdout) => {
+        let size = '0';
+        if (!duErr && duStdout) {
+          size = duStdout.trim().split(/\s+/)[0] || '0';
+        }
+
+        results.push({ path: dir, size });
+        completed++;
+
+        if (completed === dirs.length) {
+          // Keep response shape consistent with previous implementation
+          res.json({ success: true, directories: results });
+        }
+      });
     });
   });
 });
