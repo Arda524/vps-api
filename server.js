@@ -1,31 +1,19 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const contaboRoutes = require('./routes/contabo');
-const authMiddleware = require('./middleware/auth');
+const app = require('./app');
+const logger = require('./utils/logger');
+const config = require('./config');
 
-const app = express();
+const server = app.listen(config.PORT, '0.0.0.0', () => {
+  logger.info(`Server listening on port ${config.PORT}`);
+});
 
-// CORS portfolio
-app.use(cors({
-  origin: process.env.ALLOWED_ORIGIN,
-  credentials: true
-}));
-
-app.use(express.json());
-
-app.use('/api/contabo', authMiddleware, contaboRoutes);
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
-    service: 'TikTok Downloader & Server API',
-    timestamp: new Date().toISOString()
+const shutdown = (signal) => {
+  logger.info(`Received ${signal}, shutting down`);
+  server.close(() => {
+    logger.info('Server closed');
+    process.exit(0);
   });
-});
+  setTimeout(() => process.exit(1), 10000);
+};
 
-const PORT = process.env.PORT;
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`📍 Server: /api/contabo/status (requires API key)`);
-});
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));

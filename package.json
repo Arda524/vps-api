@@ -1,7 +1,7 @@
 {
   "name": "vps-api",
   "version": "1.0.0",
-  "description": "VPS Server Management API for Contabo",
+  "description": "VPS Server Management API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,13 @@
   "dependencies": {
     "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mime-types": "^2.1.35",
+    "helmet": "^7.0.0",
+    "compression": "^1.7.4",
+    "express-rate-limit": "^6.8.0",
+    "morgan": "^1.10.0",
+    "winston": "^3.9.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.0"
