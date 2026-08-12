@@ -35,8 +35,6 @@ SERVER_API_KEY=your_secure_api_key_here
 ALLOWED_ORIGIN=http://localhost:3000
 LOG_LEVEL=info
 PROJECTS_DIR=/var/www
-# Optional legacy fallback upload directory
-UPLOADS_DIR=/var/www/<project>/public/uploads
 ```
 
 > Do not commit `.env` to source control.
