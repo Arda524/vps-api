@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../../../controllers/server/logsController');
+const controller = require('../../controllers/server/logsController');
 
 router.get('/all', (req, res, next) => controller.allLogs(req, res, next));
 router.get('/pm2', (req, res, next) => controller.pm2Logs(req, res, next));

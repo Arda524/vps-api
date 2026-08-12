@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const controller = require('../../../controllers/server/filesController');
+const controller = require('../../controllers/server/filesController');
 
 router.get('/list', (req, res, next) => controller.list(req, res, next));
 router.get('/file', (req, res, next) => controller.file(req, res, next));
