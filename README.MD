@@ -106,5 +106,6 @@ Recommended production setup:
 ## Notes
 
 - This repository is currently structured for server management on a Linux host.
+- Source code is organized under the `src/` directory for clearer separation from repo metadata.
 - The file service is protected by path sanitization and base directory enforcement.
 - The project is designed to be modular and easier to extend.
