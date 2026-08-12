@@ -2,8 +2,7 @@ const mime = require('mime-types');
 const { formatFileSize, sanitizePath } = require('../../utils/helpers');
 const fileService = require('../../services/fileService');
 const system = require('../../services/systemService');
-
-const config = require('../../../config');
+const config = require('../../config');
 
 async function resolveUploadsBaseDir(projectName) {
   if (projectName) return system.resolveProjectUploadDir(projectName);
