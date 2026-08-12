@@ -1,6 +1,6 @@
 const fs = require('fs').promises;
 const path = require('path');
-const system = require('../../../services/systemService');
+const system = require('../../services/systemService');
 
 async function rootInfo(req, res, next) {
   try {

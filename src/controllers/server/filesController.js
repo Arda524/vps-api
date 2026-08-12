@@ -1,7 +1,7 @@
 const mime = require('mime-types');
-const { formatFileSize, sanitizePath } = require('../../../utils/helpers');
-const fileService = require('../../../services/fileService');
-const system = require('../../../services/systemService');
+const { formatFileSize, sanitizePath } = require('../../utils/helpers');
+const fileService = require('../../services/fileService');
+const system = require('../../services/systemService');
 
 const config = require('../../../config');
 

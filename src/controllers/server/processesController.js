@@ -1,4 +1,4 @@
-const system = require('../../../services/systemService');
+const system = require('../../services/systemService');
 
 async function listProcesses(req, res, next) {
   try {

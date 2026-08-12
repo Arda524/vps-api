@@ -1,4 +1,4 @@
-const system = require('../../../services/systemService');
+const system = require('../../services/systemService');
 
 function tailLines(output, lines) {
   const entries = (output || '').split('\n').filter(Boolean);
