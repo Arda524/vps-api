@@ -10,7 +10,6 @@ const logger = createLogger({
   transports: [new transports.Console()]
 });
 
-// morgan stream
 logger.stream = {
   write: (message) => {
     logger.info(message.trim());

@@ -1,5 +1,4 @@
 
-// Format file size
 function formatFileSize(bytes) {
   if (bytes === 0) return '0 B';
   const k = 1024;
@@ -8,13 +7,11 @@ function formatFileSize(bytes) {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 }
 
-// Sanitize path
 function sanitizePath(inputPath) {
   if (!inputPath) return '';
   return inputPath.replace(/\.\./g, '').replace(/\/\//g, '/').replace(/^\/+|\/+$/g, '');
 }
 
-// Format uptime
 function formatUptime(seconds) {
   if (!seconds && seconds !== 0) return '-';
   const days = Math.floor(seconds / 86400);
